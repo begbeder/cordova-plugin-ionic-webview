@@ -103,6 +103,7 @@ public class WebViewLocalServer {
         tempResponseHeaders = responseHeaders;
       }
       tempResponseHeaders.put("Cache-Control", "no-cache");
+      tempResponseHeaders.put("Access-Control-Allow-Origin", "*");
       this.responseHeaders = tempResponseHeaders;
     }
 
@@ -184,7 +185,7 @@ public class WebViewLocalServer {
     }
     return uri;
   }
-  
+
   private static WebResourceResponse createWebResourceResponse(String mimeType, String encoding, int statusCode, String reasonPhrase, Map<String, String> responseHeaders, InputStream data) {
     if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       return new WebResourceResponse(mimeType, encoding, statusCode, reasonPhrase, responseHeaders, data);
@@ -246,6 +247,7 @@ public class WebViewLocalServer {
         }
         tempResponseHeaders.put("Accept-Ranges", "bytes");
         tempResponseHeaders.put("Content-Range", "bytes " + fromRange + "-" + range + "/" + totalRange);
+        tempResponseHeaders.put("Access-Control-Allow-Origin", "*");
       } catch (IOException e) {
         statusCode = 404;
       }
